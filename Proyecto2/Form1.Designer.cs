@@ -75,6 +75,7 @@
             peliculasBtn.TabIndex = 3;
             peliculasBtn.Text = "Peliculas";
             peliculasBtn.UseVisualStyleBackColor = true;
+            peliculasBtn.Click += peliculasBtn_Click;
             // 
             // sucursalBtn
             // 
@@ -84,6 +85,7 @@
             sucursalBtn.TabIndex = 4;
             sucursalBtn.Text = "Sucursal";
             sucursalBtn.UseVisualStyleBackColor = true;
+            sucursalBtn.Click += sucursalBtn_Click;
             // 
             // encargadoBtn
             // 
@@ -93,6 +95,7 @@
             encargadoBtn.TabIndex = 5;
             encargadoBtn.Text = "Encargado";
             encargadoBtn.UseVisualStyleBackColor = true;
+            encargadoBtn.Click += encargadoBtn_Click;
             // 
             // categoriaBtn
             // 

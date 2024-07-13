@@ -59,6 +59,33 @@ namespace Proyecto2.logicadeaccesoadatos
             }
             return listaCategorias;
         }
+        public Categoria obtenerCategoriaPorId(int idCategoria)
+        {
+            Categoria categoria = null;
+
+            using (SqlConnection conexion = BaseDeDatos.ObtenerConexion())
+            {
+                string consulta = @"SELECT IdCategoria, NombreCategoria, Descripcion FROM CategoriaPelicula WHERE IdCategoria = @idCategoria";
+
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@idCategoria", idCategoria);
+
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            int id = reader.GetInt32(0);
+                            string nombre = reader.GetString(1);
+                            string descripcion = reader.GetString(2);
+
+                            categoria = new Categoria(id, nombre, descripcion);
+                        }
+                    }
+                }
+            }
+            return categoria;
+        }
         public void mostrarClientes()
         {
             List<Categoria> clientes = obtenerCategorias();

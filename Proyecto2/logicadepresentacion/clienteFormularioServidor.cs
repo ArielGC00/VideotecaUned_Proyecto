@@ -66,9 +66,8 @@ namespace Servidor.logicadepresentacion
             string segundoApellido = segundoApellidoTxt.Text;
             DateTime fechaNacimiento = fechaNacimientoSelect.Value;
             int idCliente = int.Parse(iDClienteTxt.Text);
-            DateTime fechaRegistro = DateTime.Now; // Fecha de registro autogenerada
+            DateTime fechaRegistro = DateTime.Now;
 
-            // Convertir el valor del ComboBox a booleano
             bool activo = (activoClienteComboBox.SelectedItem.ToString() == "Si");
 
             DAOCliente daoCliente = new DAOCliente();
