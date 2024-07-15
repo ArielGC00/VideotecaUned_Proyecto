@@ -112,7 +112,7 @@ namespace Proyecto2.logicadeaccesoadatos
             {
                 string pelicula = cliente.pelicula.titulo;
                 string categorita= cliente.pelicula.categoria.nombreCategoria;
-                string sucursal = cliente.sucursal.nombreSucursal;
+              //  string sucursal = cliente.sucursal.nombreSucursal;
                 string encargado= cliente.sucursal.encargado.PrimerApellido;
                 int cantidad = cliente.cantidad;
             }

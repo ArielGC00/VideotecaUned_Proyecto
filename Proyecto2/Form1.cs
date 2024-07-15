@@ -43,9 +43,51 @@ namespace Proyecto2
 
         private void sucursalBtn_Click(object sender, EventArgs e)
         {
-            registrarSucursalForm registrarSucursalForm = new registrarSucursalForm(); 
+            registrarSucursalForm registrarSucursalForm = new registrarSucursalForm();
             registrarSucursalForm.Show();
 
+        }
+
+        private void peliculaXSucursalBtn_Click(object sender, EventArgs e)
+        {
+            registrarPeliculaXSucursal registrarPeliculaXSucursalForm = new registrarPeliculaXSucursal();
+            registrarPeliculaXSucursalForm.Show();
+        }
+
+        private void verCategoriasBtn_Click(object sender, EventArgs e)
+        {
+            verCategoriasFrom verCategoriasFrom = new verCategoriasFrom();
+            verCategoriasFrom.Show();
+        }
+
+        private void verPeliculasBtn_Click(object sender, EventArgs e)
+        {
+            verPeliculasForm verPeliculasForm = new verPeliculasForm();
+            verPeliculasForm.Show();
+        }
+
+        private void verEncargadoBtn_Click(object sender, EventArgs e)
+        {
+            verEncargadosForm verEncargadosForm = new verEncargadosForm();
+            verEncargadosForm.Show();
+        }
+
+        private void verSucursalesRegistradasBtn_Click(object sender, EventArgs e)
+        {
+            verSucursalForm verSucursalForm = new verSucursalForm();
+            verSucursalForm.Show();
+        }
+
+        private void verClientesBtn_Click(object sender, EventArgs e)
+        {
+            verClienteForm verClienteForm = new verClienteForm();
+            verClienteForm.Show();
+        }
+
+        private void verPeliculaXSucursalBtn_Click(object sender, EventArgs e)
+        {
+            verPeliculaXSucursalForm verPeliculaXSucursalForm = new verPeliculaXSucursalForm();
+            verPeliculaXSucursalForm.Show();
         }
     }
 }

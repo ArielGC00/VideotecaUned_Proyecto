@@ -26,14 +26,7 @@ namespace Proyecto2.logicadenegocios
             FechaNacimiento = fechaNacimiento;
         }
 
-        // Método para obtener la edad
-        public int ObtenerEdad()
-        {
-            var today = DateTime.Today;
-            var age = today.Year - FechaNacimiento.Year;
-            if (FechaNacimiento.Date > today.AddYears(-age)) age--;
-            return age;
-        }
+      
 
     }
 }

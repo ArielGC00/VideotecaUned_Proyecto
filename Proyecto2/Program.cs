@@ -1,4 +1,5 @@
 using Proyecto2.logicadeaccesoadatos;
+using Servidor.controlador;
 
 namespace Proyecto2
 {
@@ -14,6 +15,8 @@ namespace Proyecto2
             DateTime fechaNacimiento = new DateTime(2005, 04, 07);
             DateTime fechaRegistro = new DateTime(2024, 07, 12);
             dAOEncargado.mostrarClientes();
+            Server server = new Server();
+            server.Start();
             //daoCliente.registrarPersonaCliente( "3-0557-0420","Jimena","fernandez","Vargas",fechaNacimiento,1000,fechaRegistro,true);
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
