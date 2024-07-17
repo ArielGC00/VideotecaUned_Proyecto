@@ -26,7 +26,7 @@ namespace Servidor.logicadepresentacion
             string segundoApellido = segundoApellidoTxt.Text;
             DateTime fechaNacimiento = fechaNacimientoEncargado.Value;
             int idEncargado = int.Parse(idEncargadoTxt.Text);
-            DateTime fechaIngreso = DateTime.Now; // Fecha de registro autogenerada
+            DateTime fechaIngreso = DateTime.Now;
 
             DAOEncargado daoEncargado = new DAOEncargado();
             daoEncargado.registrarPersonaEncargada(identificacion, nombre, primerApellido, segundoApellido, fechaNacimiento,idEncargado,fechaIngreso);

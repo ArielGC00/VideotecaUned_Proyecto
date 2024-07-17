@@ -103,6 +103,25 @@ namespace Proyecto2.logicadeaccesoadatos
             }
             return listaPeliculasXSucursal;
         }
+        public void actualizarCantidadPelicula(int idSucursal, int idPelicula)
+        {
+            using (SqlConnection conexion = BaseDeDatos.ObtenerConexion())
+            {
+                string consulta = "UPDATE PeliculaXSucursal SET Cantidad=Cantidad-1 WHERE IdPelicula=@IdPelicula AND IdSucursal=@IdSucursal";
+
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@IdSucursal", idSucursal);
+                    comando.Parameters.AddWithValue("@IdPelicula", idPelicula);
+
+
+                    int filasInsertadas = comando.ExecuteNonQuery();
+
+                    Console.WriteLine($"Filas insertadas: {filasInsertadas}");
+                }
+            }
+
+        }
 
         public void mostrarClientes()
         {

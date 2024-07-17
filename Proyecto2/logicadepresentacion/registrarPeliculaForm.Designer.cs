@@ -151,6 +151,7 @@
             Controls.Add(label1);
             Name = "registrarPeliculaForm";
             Text = "registrarPeliculaForm";
+            Load += registrarPeliculaForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }

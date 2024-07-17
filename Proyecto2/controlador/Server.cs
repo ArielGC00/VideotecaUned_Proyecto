@@ -1,6 +1,7 @@
 ﻿using Proyecto2.logicadeaccesoadatos;
 using Proyecto2.logicadenegocios;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Servidor.controlador
     {
         private TcpListener server;
         private bool isRunning;
+        string responseString = null;
 
         public Server()
         {
@@ -95,17 +97,26 @@ namespace Servidor.controlador
                 Console.WriteLine("Mensaje recibido: " + dataReceived);
 
                 // Procesar el mensaje recibido basado en el tipo de dato
-                string response = ProcesarMensaje(dataReceived);
+                List<string> response = ProcesarMensaje(dataReceived);
+
+                // Unir los elementos de la lista en una única cadena con un delimitador
+                if (response != null)
+                {
+                    responseString = string.Join("|", response);
+                }
+                
+                
 
                 // Enviar la respuesta al cliente
-                byte[] dataToSend = Encoding.ASCII.GetBytes(response);
+                byte[] dataToSend = Encoding.ASCII.GetBytes(responseString);
                 clientStream.Write(dataToSend, 0, dataToSend.Length);
                 clientStream.Flush();
             }
 
             client.Close();
         }
-        private string ProcesarMensaje(string mensaje)
+
+        private List<string> ProcesarMensaje(string mensaje)
         {
             if (mensaje.StartsWith("VALIDAR_ID:"))
             {
@@ -113,14 +124,58 @@ namespace Servidor.controlador
                 ClienteController controladorCliente = new ClienteController();
                 return controladorCliente.validarCliente(cedulaCliente);
             }
-            // Agrega más condiciones para otros tipos de datos aquí.
+            else if (mensaje.StartsWith("SOLICITAR_SUCURSAL:"))
+            {
+                SucursalController controladorSucursal = new SucursalController();
+                return controladorSucursal.solicitarSucursales();
+            }
+            else if (mensaje.StartsWith("SOLICITAR_PELICULASXSUCURSAL:"))
+            {
+                string idSucursal = mensaje.Substring("SOLICITAR_PELICULASXSUCURSAL:".Length);
+                PeliculaXSucursalController peliculaXSucursalController = new PeliculaXSucursalController();
+                return peliculaXSucursalController.solicitarPeliculaXSucursal(idSucursal);
+            }
+            else if (mensaje.StartsWith("REGISTRAR_PRESTAMO:"))
+            {
+                // Extraer los valores de idSucursal, idPeliculaSeleccionada y identificacion
+                string datos = mensaje.Substring("REGISTRAR_PRESTAMO:".Length);
+                string[] partes = datos.Split(',');
+
+                if (partes.Length == 3)
+                {
+                    string idSucursal = partes[0];
+                    string idPeliculaSeleccionada = partes[1];
+                    string identificacion = partes[2];
+
+                    // Aquí puedes usar los valores extraídos como necesites
+                    PrestamoController prestamoController = new PrestamoController();
+                    return prestamoController.registrarPrestamo(idSucursal, idPeliculaSeleccionada, identificacion);
+                }
+                else
+                {
+                    return new List<string>
+                        {
+                            "Datos insuficientes para registrar el préstamo"
+                        };
+                }
+            }
+            else if (mensaje.StartsWith("VER_PRESTAMOS:"))
+            {
+                string cedulaCliente = mensaje.Substring("VER_PRESTAMOS:".Length);
+                DAOCliente dAOCliente = new DAOCliente();
+                int idCliente=dAOCliente.obtenerIdCliente(cedulaCliente);
+                PrestamoController prestamoController=new PrestamoController();
+                return prestamoController.obtenerPrestamosCliente(idCliente);
+            }
             else
             {
-                return "Comando no reconocido.";
+                return new List<string>
+                    {
+                        "Cliente no validado"
+                    };
             }
         }
 
-        
 
         public void Stop()
         {

@@ -8,11 +8,11 @@ namespace Proyecto2.logicadenegocios
 {
     internal class Prestamo
     {
-        private int idPrestamo;
-        private int idCliente;
-        private int idPelicula;
-        private DateTime fechaPrestamo;
-        private bool pendienteDevolucion;
+        public int idPrestamo { get; set; }
+        public int idCliente { get; set; }
+        public int idPelicula { get; set; }
+        public DateTime fechaPrestamo { get; set; }
+        public bool pendienteDevolucion { get; set; }
 
         public Prestamo(int idPrestamo, int idCliente, int idPelicula, DateTime fechaPrestamo, bool pendienteDevolucion)
         {

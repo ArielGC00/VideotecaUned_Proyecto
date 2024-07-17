@@ -34,17 +34,20 @@ namespace Cliente
 
                 // Recibir la respuesta del servidor
                 string response = recibirRespuestaDelServidor();
-                if (response.StartsWith("Cliente valido:"))
+                string[] responseParts = response.Split('|');
+
+                if (responseParts[0] == "Cliente validado")
                 {
-                    MessageBox.Show(response);
-                    abrirVentanaCliente(response);
+                    string nombreCliente = responseParts[1];
+                    string identificacionCliente = responseParts[2];
+                    MessageBox.Show($"Cliente válido: {nombreCliente}");
+
+                    abrirVentanaCliente(nombreCliente, identificacionCliente);
                 }
                 else
                 {
-                    MessageBox.Show("No entra");
+                    MessageBox.Show("Cliente no válido o inactivo.");
                 }
-
-                MessageBox.Show($"Conexión exitosa con el servidor desde Cliente {clientId}.");
             }
             catch (Exception ex)
             {
@@ -52,9 +55,9 @@ namespace Cliente
             }
         }
 
-        private void abrirVentanaCliente(string mensaje)
+        private void abrirVentanaCliente(string nombreCliente, string identificacionCliente)
         {
-            PrestamoForm clienteVentana = new PrestamoForm(clientId, client, stream, mensaje);
+            PrestamoClienteForm clienteVentana = new PrestamoClienteForm(clientId, client, stream, nombreCliente, identificacionCliente);
             clienteVentana.Show();
             this.Hide(); // Opcional: oculta la ventana de conexión
         }

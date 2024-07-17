@@ -71,6 +71,33 @@ namespace Proyecto2.logicadeaccesoadatos
             }
             return listaPeliculas;
         }
+        public string obtenerPeliculaPorId(int idPelicula)
+        {
+            string resultado = null;
+            using (SqlConnection conexion = BaseDeDatos.ObtenerConexion())
+            {
+                string consulta = @"SELECT p.IdPelicula,p.Titulo,c.NombreCategoria ,p.AnioLanzamiento,p.Idioma FROM Pelicula p JOIN CategoriaPelicula c ON p.IdCategoria=c.IdCategoria WHERE p.IdPelicula=@idPelicula";
+
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@idPelicula", idPelicula);
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            idPelicula=reader.GetInt32(0);
+                            string titulo=reader.GetString(1);
+                            string nombreCategoria=reader.GetString(2);
+                            int anioLanzamiento=reader.GetInt32(3);
+                            string idioma=reader.GetString(4);
+                            resultado = $"{idPelicula},{titulo},{nombreCategoria},{anioLanzamiento},{idioma}";
+
+                        }
+                    }
+                }
+            }
+            return resultado;
+        }
         public void mostrarClientes()
         {
             List<Pelicula> clientes = obtenerPeliculas();

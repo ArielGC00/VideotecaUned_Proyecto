@@ -91,10 +91,34 @@ namespace Proyecto2.logicadeaccesoadatos
                             listaClientes.Add(cliente);
                         }
                     }
+                    
                 }
             }
             return listaClientes;
         }
+
+        public int obtenerIdCliente(string cedulaCliente) {
+
+            int idCliente = 0;
+            using (SqlConnection conexion = BaseDeDatos.ObtenerConexion())
+            {
+                string consulta = @"SELECT IdCliente FROM Cliente WHERE Identificacion=@cedulaCliente";
+
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    comando.Parameters.AddWithValue("@cedulaCliente", cedulaCliente);
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                             idCliente = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+            return idCliente;
+        }
+
         public void mostrarClientes()
         {
             List<Cliente> clientes = obtenerClientes();

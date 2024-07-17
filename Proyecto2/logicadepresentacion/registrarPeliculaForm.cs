@@ -39,13 +39,18 @@ namespace Servidor.logicadepresentacion
             string tituloPelicula = tituloTxt.Text;
             int categoriaPelicula = ((Categoria)idCategoriaComboBox.SelectedItem).idCategoria;
             int anioLanzamiento = int.Parse(anioLanzamientoTxt.Text);
-            string idiomaPelicula= idomaTxt.Text;
+            string idiomaPelicula = idomaTxt.Text;
             DAOCategoria dAOCategoria = new DAOCategoria();
-            Categoria categoria=dAOCategoria.obtenerCategoriaPorId(categoriaPelicula);
+            Categoria categoria = dAOCategoria.obtenerCategoriaPorId(categoriaPelicula);
             int idCategoria = categoria.idCategoria;
 
             DAOPelicula daoPelicula = new DAOPelicula();
-            daoPelicula.registrarPelicula(idPelicula,categoriaPelicula,tituloPelicula,idiomaPelicula,anioLanzamiento);
+            daoPelicula.registrarPelicula(idPelicula, categoriaPelicula, tituloPelicula, idiomaPelicula, anioLanzamiento);
+        }
+
+        private void registrarPeliculaForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
